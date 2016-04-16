@@ -3,22 +3,17 @@ import Ember from 'ember';
 const { inject } = Ember;
 
 export default Ember.Route.extend({
-  session: inject.service(),
 
-  model() {
-    return this.store.createRecord('user');
-  },
+  // Attributes
+  createUserService: inject.service('create-user'),
 
+  // Actions
   actions: {
-    createRegistration(model, email, password, passwordConfirmation) {
-      const session = this.get('session');
-      model.setProperties({ email, password, passwordConfirmation });
-
-      return model.save().then(() => {
-        return session.authenticate('authenticator:oauth2', email, password).then(() => {
-          console.log('authentication finished!');
-        });
-      });
+    createRegistration(email, password, passwordConfirmation) {
+      this.get('createUserService')
+          .createUser({ email, password,passwordConfirmation })
+          .then(() => this.transitionTo('authenticated'))
+          .catch((e) => console.error('creating a user failed with ' + e));
     }
   }
 });

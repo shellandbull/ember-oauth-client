@@ -7,6 +7,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('sign-up');
+  this.route('authenticated', { path: '' });
 });
 
 export default Router;
