@@ -1,3 +1,5 @@
+import Mirage from 'ember-cli-mirage';
+
 var parseQueryString = function(qstr) {
   var query = {};
   var a = qstr.split('&');
@@ -6,7 +8,7 @@ var parseQueryString = function(qstr) {
       query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
   }
   return query;
-}
+};
 
 export default function() {
   this.namespace = 'api';
@@ -50,16 +52,19 @@ export default function() {
           }
         }
       }
-    }
+    };
   });
 
   this.post('/oauth/token', function(db, req) {
-    const { grant_type, username, password } = parseQueryString(req.requestBody);
+    const { username } = parseQueryString(req.requestBody);
     if (db.users.where({ email: username }).length) {
-      throw new Error('TODO IMPLEMENT');
       return {
-
-      }
+        access_token: '90c1e7ac7fe2acc8ba26dab87fe53f27d000f70951d6356e2bdcb49fbc22c3ec',
+        token_type: 'bearer',
+        expires_in: 7200,
+        refresh_token: '0a1345868581f986a05d94c6d72bb9d3095d634cd229b5ba03eb518fff655f79',
+        created_at: 'created_at'
+      };
     } else {
       return new Mirage.Response(422, {}, {
         errors: {
@@ -69,10 +74,3 @@ export default function() {
     }
   });
 }
-
-/*
-You can optionally export a config that is only loaded during tests
-export function testConfig() {
-
-}
-*/

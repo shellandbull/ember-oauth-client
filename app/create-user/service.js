@@ -19,12 +19,15 @@ export default Ember.Service.extend({
 
 
     const user     = store.createRecord('user', { email, password, passwordConfirmation });
-    const oauthApp = store.createRecord('oauth-application', {});
+    const oauthApp = store.createRecord('oauth-application', {
+      name: 'web browser',
+      redirectUri: 'https://change-this.todo/'
+    });
 
     return user.save().then((createdUser) => {
       oauthApp.set('owner', user);
-      oauthApp.save().then(() => {
-        session.authenticate('authenticator:oauth2', email, password).then(() => {
+      return oauthApp.save().then(() => {
+        return session.authenticate('authenticator:oauth2', email, password).then(() => {
           currentUser.set('content', createdUser);
         });
       });

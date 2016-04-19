@@ -1,5 +1,5 @@
 {
-  "name": "ember-training",
+  "name": "ember-oauth-client",
   "dependencies": {
     "ember": "~2.4.3",
     "ember-cli-shims": "0.1.1",

@@ -1,5 +1,5 @@
 import { test } from 'qunit';
-import moduleForAcceptance from 'ember-training/tests/helpers/module-for-acceptance';
+import moduleForAcceptance from 'ember-oauth-client/tests/helpers/module-for-acceptance';
 
 moduleForAcceptance('Acceptance | sign up');
 
@@ -12,7 +12,7 @@ test('visiting /sign-up', function(assert) {
 });
 
 test('Creating a new user, with valid parameters', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   visit('/sign-up');
   const email    = 'mariojgintili@gmail.com';
@@ -34,7 +34,6 @@ test('Creating a new user, with valid parameters', function(assert) {
     assert.equal(data.attributes['password-confirmation'], password, 'sends password-confirmation in the payload');
 
     user = db.users.insert({ email: data.attributes.email });
-
     return {
       data: {
         type: 'users',
@@ -43,12 +42,24 @@ test('Creating a new user, with valid parameters', function(assert) {
           email: user.email
         }
       }
-    }
+    };
   });
 
-  server.post('/oauth-applications', function(db, req) {
-    const { data } = JSON.parse(req.requestBody);
+  server.post('/oauth-applications', function(db) {
     assert.ok(true, 'sends a POST to /api/oauth-applications with valid JSON');
-    debugger;
+    const oauthApp = db['oauth-applications'].insert({ name: 'foobar app' });
+    return {
+      data: {
+        type: 'oauth-applications',
+        id: oauthApp.id,
+        attributes: {
+          name: oauthApp.name
+        }
+      }
+    };
+  });
+
+  server.post('/oauth/token', function() {
+    assert.ok(true, 'sends a POST to api/oauth/tokens after the oauth application and the user have been created');
   });
 });

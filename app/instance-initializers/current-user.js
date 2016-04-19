@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 export function initialize(appInstance) {
   const service = Ember.ObjectProxy.create({ isServiceFactory: true });
   appInstance.register('service:current-user', service, { instantiate: false, singleton: true });

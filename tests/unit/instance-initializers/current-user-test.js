@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { initialize } from 'ember-training/instance-initializers/current-user';
+import { initialize } from 'ember-oauth-client/instance-initializers/current-user';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 
