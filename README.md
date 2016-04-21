@@ -1,9 +1,10 @@
-# ember-oauth-client
+# ember-oauth-client [![Build Status](https://travis-ci.org/mariogintili/ember-oauth-client.svg?branch=master)](https://travis-ci.org/mariogintili/ember-oauth-client)
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a fully functional demo of using the OAUTH2 grant type `"password"`. This project works *out-of-the-box* :godmode: with another project I built called **[Backend](https://github.com/mariogintili/backend)**
 
-## Prerequisites
+If you're new to Ember and Ember-CLI please feel free to skim through this app, I believe it entails good practices and clean code :monkey: 
+
+## What you'll need for this :pizza:
 
 You will need the following things properly installed on your computer.
 
@@ -29,25 +30,8 @@ You will need the following things properly installed on your computer.
 
 Make use of the many generators for code, try `ember help generate` for more details
 
-### Running Tests
+### Tests
 
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+- Boot the server
+- Visit `/tests`
 
