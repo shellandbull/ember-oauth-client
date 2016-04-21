@@ -14,18 +14,6 @@ test('visiting /sign-up', function(assert) {
 test('Creating a new user, with valid parameters', function(assert) {
   assert.expect(6);
 
-  visit('/sign-up');
-  const email    = 'mariojgintili@gmail.com';
-  const password = 'yolo123456';
-  let user;
-
-  andThen(() => {
-    fillIn('.sign-up__form__email', email);
-    fillIn('.sign-up__form__password', password);
-    fillIn('.sign-up__form__password-confirmation', password);
-    click('.sign-up__form__submit');
-  });
-
   server.post('/users', function(db, req) {
     const { data } = JSON.parse(req.requestBody);
     assert.ok(true, 'sends a POST to /api/users with valid JSON');
@@ -61,5 +49,17 @@ test('Creating a new user, with valid parameters', function(assert) {
 
   server.post('/oauth/token', function() {
     assert.ok(true, 'sends a POST to api/oauth/tokens after the oauth application and the user have been created');
+  });
+
+  visit('/sign-up');
+  const email    = 'mariojgintili@gmail.com';
+  const password = 'yolo123456';
+  let user;
+
+  andThen(() => {
+    fillIn('.sign-up__form__email', email);
+    fillIn('.sign-up__form__password', password);
+    fillIn('.sign-up__form__password-confirmation', password);
+    click('.sign-up__form__submit');
   });
 });
