@@ -1,18 +1,22 @@
-var VALID_DEPLOY_TARGETS = [ //update these to match what you call your deployment targets
+
+// List all available deploy targets
+var VALID_DEPLOY_TARGETS = [
   'dev',
-  'qa',
   'prod'
 ];
+
+var keyPrefix = process.env.KEY_PREFIX || 'ember-oauth-client:index';
+var prefix    = process.env.PREFIX || 'ember-oauth-client';
 
 module.exports = function(deployTarget) {
   var ENV = {
     build: {},
     redis: {
       allowOverwrite: true,
-      keyPrefix: 'ember-oauth-client:index'
+      keyPrefix: keyPrefix
     },
     s3: {
-      prefix: 'ember-oauth-client'
+      prefix: prefix
     }
   };
   if (VALID_DEPLOY_TARGETS.indexOf(deployTarget) === -1) {
@@ -21,24 +25,17 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'dev') {
     ENV.build.environment = 'development';
-    ENV.redis.url = process.env.REDIS_URL || 'redis://0.0.0.0:6379/';
+    ENV.redis.url = process.env.DEV_REDIS_URL || 'redis://0.0.0.0:6379/';
     ENV.plugins = ['build', 'redis']; // only care about deploying index.html into redis in dev
   }
 
-  if (deployTarget === 'qa' || deployTarget === 'prod') {
-    ENV.build.environment = 'production';
-    ENV.s3.accessKeyId = process.env.AWS_KEY;
-    ENV.s3.secretAccessKey = process.env.AWS_SECRET;
-    ENV.s3.bucket = /* YOUR S3 BUCKET NAME */;
-    ENV.s3.region = /* YOUR S3 REGION */;
-  }
-
-  if (deployTarget === 'qa') {
-    ENV.redis.url = process.env.QA_REDIS_URL;
-  }
-
   if (deployTarget === 'prod') {
-    ENV.redis.url = process.env.PROD_REDIS_URL;
+    ENV.build.environment  = 'production';
+    ENV.s3.accessKeyId     = process.env.PROD_AWS_KEY;
+    ENV.s3.secretAccessKey = process.env.PROD_AWS_SECRET;
+    ENV.s3.bucket          = process.env.PROD_AWS_S3_BUCKET_NAME;  /* YOUR S3 BUCKET NAME */;
+    ENV.s3.region          = process.env.PROD_AWS_S3_BUCKET_REGION; /* YOUR S3 REGION */;
+    ENV.redis.url          = process.env.PROD_REDIS_URL;
   }
 
   return ENV;
