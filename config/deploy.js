@@ -25,8 +25,11 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'dev') {
     ENV.build.environment = 'development';
-    ENV.redis.url = process.env.DEV_REDIS_URL || 'redis://0.0.0.0:6379/';
-    ENV.plugins = ['build', 'redis']; // only care about deploying index.html into redis in dev
+    ENV.s3.accessKeyId     = process.env.DEV_AWS_KEY;
+    ENV.s3.secretAccessKey = process.env.DEV_AWS_SECRET;
+    ENV.s3.bucket          = process.env.DEV_AWS_S3_BUCKET_NAME;  /* YOUR S3 BUCKET NAME */;
+    ENV.s3.region          = process.env.DEV_AWS_S3_BUCKET_REGION; /* YOUR S3 REGION */;
+    ENV.redis.url          = process.env.DEV_REDIS_URL || 'redis://0.0.0.0:6379/';
   }
 
   if (deployTarget === 'prod') {
@@ -35,7 +38,7 @@ module.exports = function(deployTarget) {
     ENV.s3.secretAccessKey = process.env.PROD_AWS_SECRET;
     ENV.s3.bucket          = process.env.PROD_AWS_S3_BUCKET_NAME;  /* YOUR S3 BUCKET NAME */;
     ENV.s3.region          = process.env.PROD_AWS_S3_BUCKET_REGION; /* YOUR S3 REGION */;
-    ENV.redis.url          = process.env.PROD_REDIS_URL;
+    ENV.redis.url          = process.env.PROD_REDIS_URL || 'redis://0.0.0.0:6379/';
   }
 
   return ENV;

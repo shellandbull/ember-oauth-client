@@ -20,5 +20,9 @@ In order to get things going you need to set up the following env variables to e
 | `PROD_AWS_S3_BUCKET_NAME`   | The name of the bucket you created in S3 for this              | none                       |
 | `PROD_AWS_S3_BUCKET_REGION` | The name of the region where your bucket's located             | none                       |
 | `PROD_REDIS_URL`            | The URL for the redis connection in the production environment | none                       |
+| `ASSET_HOST`                | The host for your assets. The base URL for the S3 bucket       | none                       |
 |                             |                                                                |                            |
-|                             |                                                                |                            |
+
+After they're set. Go to the [AWS Web services](https://www.expeditedssl.com/aws-in-plain-english) and setup an S3 bucket with a config that will allow you get those assets from the deployed ember app.
+
+You can find further setup instructions for S3 [here](https://github.com/ember-cli-deploy/ember-cli-deploy-s3)
