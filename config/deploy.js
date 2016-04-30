@@ -5,18 +5,18 @@ var VALID_DEPLOY_TARGETS = [
   'prod'
 ];
 
-var keyPrefix = process.env.KEY_PREFIX || 'ember-oauth-client:index';
-var prefix    = process.env.PREFIX || 'ember-oauth-client';
+var redisPrefix = process.env.REDIS_KEY_PREFIX || 'ember-oauth-client:index';
+var s3Prefix    = process.env.S3_KEY_PREFIX || 'ember-oauth-client';
 
 module.exports = function(deployTarget) {
   var ENV = {
     build: {},
     redis: {
       allowOverwrite: true,
-      keyPrefix: keyPrefix
+      keyPrefix: redisPrefix
     },
     s3: {
-      prefix: prefix
+      prefix: s3Prefix
     }
   };
   if (VALID_DEPLOY_TARGETS.indexOf(deployTarget) === -1) {
