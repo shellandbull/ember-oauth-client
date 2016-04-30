@@ -25,4 +25,6 @@ In order to get things going you need to set up the following env variables to e
 
 After they're set. Go to the [AWS Web services](https://www.expeditedssl.com/aws-in-plain-english) and setup an S3 bucket with a config that will allow you get those assets from the deployed ember app.
 
-You can find further setup instructions for S3 [here](https://github.com/ember-cli-deploy/ember-cli-deploy-s3)
+You can find further setup instructions for S3 [here](https://github.com/ember-cli-deploy/ember-cli-deploy-s3).
+
+As for Redis, you can use your provider of choice, in my personal opinion [Heroku](https://elements.heroku.com/) offers the most plug-n-play solution.
