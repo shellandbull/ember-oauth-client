@@ -13,9 +13,9 @@ var parseQueryString = function(qstr) {
 export default function() {
   this.namespace = 'api';
 
-  this.post('/users', function(db ,req) {
+  this.post('/users', function(schema ,req) {
     const payload = JSON.parse(req.requestBody).data.attributes;
-    const user    = db['users'].insert({ email: payload.email });
+    const user    = schema['users'].create({ email: payload.email });
     return {
       data: {
         type: "users",
@@ -27,13 +27,13 @@ export default function() {
     };
   });
 
-  this.post('/oauth-applications', function(db, req) {
+  this.post('/oauth-applications', function(schema, req) {
     const payload           = JSON.parse(req.requestBody);
     const attributes        = payload.data.attributes;
     attributes.name         = 'chrome-browser-client';
     attributes.redirect_uri = 'http://localhost:4200/';
     attributes.owner_id     = payload.data.relationships.owner.data.id;
-    const oauthApp          = db['oauth-applications'].insert(attributes);
+    const oauthApp          = schema.oauthApplications.create(attributes);
 
     return {
       data: {
@@ -55,9 +55,9 @@ export default function() {
     };
   });
 
-  this.post('/oauth/token', function(db, req) {
+  this.post('/oauth/token', function(schema, req) {
     const { username } = parseQueryString(req.requestBody);
-    if (db.users.where({ email: username }).length) {
+    if (schema.users.where({ email: username }).length) {
       return {
         access_token: '90c1e7ac7fe2acc8ba26dab87fe53f27d000f70951d6356e2bdcb49fbc22c3ec',
         token_type: 'bearer',

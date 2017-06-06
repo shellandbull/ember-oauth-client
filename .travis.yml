@@ -19,9 +19,7 @@ before_install:
   - export PATH=$PWD/travis-phantomjs:$PATH
 
 install:
-  - npm install -g bower
   - npm install
-  - bower install
 
 script:
   - ember test
