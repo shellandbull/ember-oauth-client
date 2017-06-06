@@ -21,7 +21,7 @@ test('Creating a new user, with valid parameters', function(assert) {
     assert.equal(data.attributes.password, password, 'sends password in the payload');
     assert.equal(data.attributes['password-confirmation'], password, 'sends password-confirmation in the payload');
 
-    user = db.users.insert({ email: data.attributes.email });
+    user = db.users.create({ email: data.attributes.email });
     return {
       data: {
         type: 'users',
@@ -35,7 +35,7 @@ test('Creating a new user, with valid parameters', function(assert) {
 
   server.post('/oauth-applications', function(db) {
     assert.ok(true, 'sends a POST to /api/oauth-applications with valid JSON');
-    const oauthApp = db['oauth-applications'].insert({ name: 'foobar app' });
+    const oauthApp = db.oauthApplications.create({ name: 'foobar app' });
     return {
       data: {
         type: 'oauth-applications',
